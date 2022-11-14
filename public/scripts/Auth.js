@@ -23,6 +23,9 @@ const Auth = {
         Auth.account = null;
         Auth.updateStatus();
         Router.go("/");
+        if (window.PasswordCredential) {
+            navigator.credentials.preventSilentAccess()
+        }
     },
     postLogin: (response, user) => {
         if (response.ok) {
@@ -31,6 +34,16 @@ const Auth = {
             Auth.updateStatus();
 
             Router.go("/account");
+
+            // Credential Management API
+            if (window.PasswordCredential && user.password) {
+                const credential = new PasswordCredential({
+                    name: user.name,
+                    id: user.email,
+                    password: user.password
+                });
+                navigator.credentials.store(credential);
+            }
         } else {
             alert(response.message)
         }
