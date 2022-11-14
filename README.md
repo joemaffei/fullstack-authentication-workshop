@@ -15,3 +15,7 @@ This is a course to start with authentication on the web published with [Fronten
 We will be working with a Progressive Web App or name CoffeeMasters. The PWA covers only the Authentication Flow. It includes a Node.js basic server with Express JS.
 
 You can download the source code to start working on it from https://github.com/firtman/coffeemasters-authn. After download or clone, run `npm install` and `npm start` to start the server.
+
+## Slides
+
+You can download the [slides](https://firtman.github.io/authentication/slides.pdf) of the course if you want to follow along with the trainer.
