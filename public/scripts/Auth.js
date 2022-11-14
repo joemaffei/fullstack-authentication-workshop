@@ -18,6 +18,23 @@ const Auth = {
         });
 
     },
+    logout: () => {
+        Auth.isLoggedIn = false;
+        Auth.account = null;
+        Auth.updateStatus();
+        Router.go("/");
+    },
+    postLogin: (response, user) => {
+        if (response.ok) {
+            Auth.isLoggedIn = true;
+            Auth.account = user;
+            Auth.updateStatus();
+
+            Router.go("/account");
+        } else {
+            alert(response.message)
+        }
+    },
     register: async  (event) => {
         event.preventDefault();
         const user = {
