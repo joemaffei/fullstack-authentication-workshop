@@ -44,6 +44,35 @@ app.post("/auth/login", (req, res) => {
   }
 });
 
+app.post("/auth/login-google", (req, res) => {
+  let jwt = jwtJsDecode.jwtDecode(req.body.credential);
+  let payload = jwt.payload;
+  let user = {
+      email: payload.email,
+      name: payload.given_name + " " + payload.family_name,
+      password: false
+  }
+  const userFound = findUser(req.body.email);
+
+  if (userFound) {
+      // User exists, we update it with the Google data
+      user.google = payload.aud;
+      db.write();
+      res.send({ok: true, name: user.name, email: userFound.email});
+  } else {
+      // User doesn't exist we create it
+      db.data.users.push({
+          ...user,
+          federated: {
+              google: payload.aud,
+          }
+      });
+      db.write();
+      res.send({ok: true, name: user.name, email: user.email});
+
+  }
+});
+
 function findUser(email) {
   const results = db.data.users.filter(u=>u.email==email);
   if (results.length==0) return undefined;
