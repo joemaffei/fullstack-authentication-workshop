@@ -29,7 +29,20 @@ app.use(express.urlencoded({
 }));
 
 // ADD HERE THE REST OF THE ENDPOINTS
-
+app.post("/auth/login", (req, res) => {
+  const user = findUser(req.body.email);
+  if (user) {
+      // user exists, check password
+      if (bcrypt.compareSync(req.body.password, user.password)) {
+          res.send({ok: true, email: user.email, name: user.name});
+      } else {
+          res.send({ok: false, message: 'Data is invalid'});
+      }
+  } else {
+      // User doesn't exist
+      res.send({ok: false, message: 'Data is invalid'});
+  }
+});
 
 
 app.get("*", (req, res) => {
