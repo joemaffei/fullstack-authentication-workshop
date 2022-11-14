@@ -2,8 +2,9 @@ import API from "./API.js";
 import Router from "./Router.js";
 
 const Auth = {
-    isLoggedIn: false,
     account: null,
+    isLoggedIn: false,
+    loginStep: 1,
     autoLogin: async () => {
         if (window.PasswordCredential) {
             const credentials = await navigator.credentials.get({ password: true });
@@ -101,7 +102,9 @@ const Auth = {
         }
     },
     init: () => {
-
+        Auth.loginStep = 1;
+        document.getElementById("login_section_password").hidden = true;
+        document.getElementById("login_section_webauthn").hidden = true;
     },
 }
 Auth.updateStatus();
