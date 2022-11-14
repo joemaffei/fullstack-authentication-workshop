@@ -5,6 +5,21 @@ const Auth = {
     account: null,
     isLoggedIn: false,
     loginStep: 1,
+    addWebAuthn: async () => {
+        const options = await API.webAuthn.registrationOptions();
+        options.authenticatorSelection.residentKey = 'required';
+        options.authenticatorSelection.requireResidentKey = true;
+        options.extensions = {
+            credProps: true,
+        };
+        const authRes = await SimpleWebAuthnBrowser.startRegistration(options);
+        const verificationRes = await API.webAuthn.registrationVerification(authRes);
+        if (verificationRes.ok) {
+            alert("You can now login using the registered method!");
+        } else {
+            alert(verificationRes.message)
+        }
+    },
     autoLogin: async () => {
         if (window.PasswordCredential) {
             const credentials = await navigator.credentials.get({ password: true });
