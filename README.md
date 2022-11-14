@@ -1,5 +1,7 @@
 # FullStack Authentication Workshop
 
+Presentation: [https://firtman.github.io/authentication](https://firtman.github.io/authentication)
+
 Hello! And welcome to the FullStack Authentication course by [Maximiliano Firtman](https://twitter.com/firt).
 
 This is a course to start with authentication on the web published with [Frontend Masters](https://www.frontendmasters.com/).
