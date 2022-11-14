@@ -4,6 +4,16 @@ import Router from "./Router.js";
 const Auth = {
     isLoggedIn: false,
     account: null,
+    autoLogin: async () => {
+        if (window.PasswordCredential) {
+            const credentials = await navigator.credentials.get({ password: true });
+            try {
+                document.getElementById("login_email").value = credentials.id;
+                document.getElementById("login_password").value = credentials.password;
+                Auth.login();
+            } catch (e) {}
+        }
+    },
     login: async (event) => {
         if (event) event.preventDefault();
         const user = {
