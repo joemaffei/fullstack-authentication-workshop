@@ -132,6 +132,17 @@ const Auth = {
 
         }
     },
+    webAuthnLogin: async (optional) => {
+        const email = document.getElementById("login_email").value;
+        const options = await API.webAuthn.loginOptions(email);
+        const loginRes = await SimpleWebAuthnBrowser.startAuthentication(options);
+        const verificationRes = await API.webAuthn.loginVerification(email, loginRes);
+        if (verificationRes) {
+            Auth.postLogin(verificationRes, verificationRes.user);
+        } else {
+            alert(verificationRes.message)
+        }
+    },
     init: () => {
         Auth.loginStep = 1;
         document.getElementById("login_section_password").hidden = true;
