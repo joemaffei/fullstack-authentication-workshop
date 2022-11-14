@@ -28,6 +28,13 @@ const Auth = {
         });
 
     },
+    loginFromGoogle: async (data) => {
+        const response = await API.loginFromGoogle(data)
+        Auth.postLogin(response, {
+            name: response.name,
+            email: response.email
+        });
+    },
     logout: () => {
         Auth.isLoggedIn = false;
         Auth.account = null;
