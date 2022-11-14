@@ -19,3 +19,7 @@ You can download the source code to start working on it from https://github.com/
 ## Slides
 
 You can download the [slides](https://firtman.github.io/authentication/slides.pdf) of the course if you want to follow along with the trainer.
+
+## Registering the project with Google
+
+Go to [Sign In With Google Setup](https://developers.google.com/identity/gsi/web/guides/overview) and register a project. Follow the guidelines to create a Credential.
