@@ -15,19 +15,35 @@ const Auth = {
             } catch (e) {}
         }
     },
+    checkAuthOptions: async (event) => {
+        const response = await API.checkAuthOptions({
+            email: document.getElementById("login_email").value
+        });
+        if (response.password) {
+            document.getElementById("login_section_password").hidden = false;
+        }
+        if (response.webauthn) {
+            document.getElementById("login_section_webauthn").hidden = false;
+        }
+        Auth.challenge = response.challenge;
+        Auth.loginStep = 2;
+    },
     login: async (event) => {
         if (event) event.preventDefault();
-        const user = {
-            email: document.getElementById("login_email").value,
-            password: document.getElementById("login_password").value
+        if (Auth.loginStep==1) {
+            Auth.checkAuthOptions();
+        } else {
+            const user = {
+                email: document.getElementById("login_email").value,
+                password: document.getElementById("login_password").value
 
-        };
-        const response = await API.login(user);
-        Auth.postLogin(response, {
-            ...user,
-            name: response.name
-        });
-
+            };
+            const response = await API.login(user);
+            Auth.postLogin(response, {
+                ...user,
+                name: response.name
+            });
+        }
     },
     loginFromGoogle: async (data) => {
         const response = await API.loginFromGoogle(data)

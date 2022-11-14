@@ -1,6 +1,9 @@
 const API = {
     endpoint: "/auth/",
     // ADD HERE ALL THE OTHER API FUNCTIONS
+    checkAuthOptions:  async (user) => {
+        return await API.makePostRequest(API.endpoint + "auth-options", user);
+    },
     login: async (user) => {
         return await API.makePostRequest(API.endpoint + "login", user);
     },

@@ -29,6 +29,22 @@ app.use(express.urlencoded({
 }));
 
 // ADD HERE THE REST OF THE ENDPOINTS
+app.post("/auth/auth-options", (req, res) => {
+  const user = findUser(req.body.email);
+
+  if (user) {
+      res.send({
+          password: true,
+          google: user.federated && user.federated.google,
+          webauthn: user.webauthn
+      })
+  } else {
+      res.send({
+          password: true
+      })
+  }
+});
+
 app.post("/auth/login", (req, res) => {
   const user = findUser(req.body.email);
   if (user) {
