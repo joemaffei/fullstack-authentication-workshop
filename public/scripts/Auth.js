@@ -28,9 +28,9 @@ const Auth = {
             );
 
         }
-    },    
+    },
     init: () => {
-        
+
     },
 }
 Auth.updateStatus();
